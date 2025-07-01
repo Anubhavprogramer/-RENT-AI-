@@ -1,41 +1,61 @@
-Neighborhood,Distance_to_Downtown,Transit_Score,Crime_Rate,Amenities_Count,Average_Rent
-Connaught Place,0.5,95,3.2,65,85000
-Karol Bagh,2.1,88,4.1,55,45000
-Lajpat Nagar,4.2,82,4.8,42,32000
-Greater Kailash,3.8,85,3.5,58,65000
-Saket,6.2,78,3.8,48,55000
-Dwarka,18.5,65,5.2,35,28000
-Gurgaon Sector 29,25.3,45,6.1,25,38000
-Noida Sector 18,28.1,52,5.8,32,35000
-Rohini,15.2,58,6.5,28,25000
-Vasant Kunj,8.5,72,4.2,45,48000
-Janakpuri,12.8,68,5.1,38,30000
-Pitampura,14.5,62,5.8,32,26000
-Hauz Khas,4.8,80,4.5,52,58000
-Defence Colony,3.2,83,3.8,48,62000
-South Extension,2.8,86,4.2,55,68000
-Rajouri Garden,8.2,70,5.4,40,35000
-Punjabi Bagh,10.5,65,5.7,35,32000
-Mayur Vihar,16.8,55,6.2,30,28000
-Patparganj,18.2,48,6.8,25,24000
-Laxmi Nagar,12.5,60,6.1,32,22000
-Preet Vihar,14.2,58,6.4,28,25000
-Shahdara,16.5,52,7.2,22,20000
-Tilak Nagar,11.8,62,5.9,30,26000
-Uttam Nagar,22.5,42,7.5,18,18000
-Munirka,6.8,75,4.8,38,42000
-Malviya Nagar,5.2,78,4.6,42,45000
-Green Park,3.5,84,4.1,50,72000
-Nehru Place,4.5,81,4.7,45,48000
-Kalkaji,7.2,72,5.2,35,38000
-Okhla,8.8,68,5.8,32,35000
-Faridabad Sector 21,32.5,38,7.1,20,22000
-Ghaziabad Vaishali,35.2,35,7.8,18,20000
-Indirapuram,30.8,42,6.5,25,28000
-Crossing Republik,42.1,25,8.2,12,16000
-Shalimar Bagh,13.5,60,6.2,28,28000
-Model Town,8.8,72,5.1,40,42000
-Civil Lines,5.2,78,4.8,45,52000
-Khan Market,2.2,90,3.8,60,78000
-Alaknanda,9.5,68,5.5,35,38000
-Chittaranjan Park,8.2,70,5.2,38,42000
+Neighborhood,Distance_to_Downtown,Transit_Score,Crime_Rate,Amenities_Count,Family_Type,People_Count,Rooms_Required,Has_Children,Parking_Required,Furnished_Type,Average_Rent
+Connaught Place,0.5,95,3.2,65,Executive,2,2,0,1,Fully-Furnished,85000
+Connaught Place,0.5,95,3.2,65,Family,4,3,1,1,Semi-Furnished,95000
+Karol Bagh,2.1,88,4.1,55,Family,4,3,1,1,Semi-Furnished,45000
+Karol Bagh,2.1,88,4.1,55,Bachelor,2,1,0,0,Unfurnished,28000
+Lajpat Nagar,4.2,82,4.8,42,Family,3,2,1,1,Semi-Furnished,32000
+Lajpat Nagar,4.2,82,4.8,42,Bachelor,1,1,0,0,Unfurnished,18000
+Greater Kailash,3.8,85,3.5,58,Executive,2,2,0,1,Fully-Furnished,65000
+Greater Kailash,3.8,85,3.5,58,Family,5,4,2,1,Semi-Furnished,85000
+Saket,6.2,78,3.8,48,Family,4,3,1,1,Semi-Furnished,55000
+Saket,6.2,78,3.8,48,Executive,2,2,0,1,Fully-Furnished,62000
+Dwarka,18.5,65,5.2,35,Family,4,3,1,1,Semi-Furnished,28000
+Dwarka,18.5,65,5.2,35,Bachelor,3,2,0,0,Unfurnished,22000
+Gurgaon Sector 29,25.3,45,6.1,25,Executive,2,2,0,1,Fully-Furnished,38000
+Gurgaon Sector 29,25.3,45,6.1,25,Family,4,3,1,1,Semi-Furnished,42000
+Noida Sector 18,28.1,52,5.8,32,Family,4,3,1,1,Semi-Furnished,35000
+Noida Sector 18,28.1,52,5.8,32,Bachelor,2,1,0,0,Unfurnished,25000
+Rohini,15.2,58,6.5,28,Family,4,3,1,1,Semi-Furnished,25000
+Rohini,15.2,58,6.5,28,Bachelor,2,1,0,0,Unfurnished,18000
+Vasant Kunj,8.5,72,4.2,45,Executive,2,2,0,1,Fully-Furnished,48000
+Vasant Kunj,8.5,72,4.2,45,Family,4,3,1,1,Semi-Furnished,58000
+Janakpuri,12.8,68,5.1,38,Family,4,3,1,1,Semi-Furnished,30000
+Janakpuri,12.8,68,5.1,38,Bachelor,2,1,0,0,Unfurnished,22000
+Pitampura,14.5,62,5.8,32,Family,3,2,1,1,Semi-Furnished,26000
+Pitampura,14.5,62,5.8,32,Bachelor,1,1,0,0,Unfurnished,18000
+Hauz Khas,4.8,80,4.5,52,Executive,2,2,0,1,Fully-Furnished,58000
+Hauz Khas,4.8,80,4.5,52,Family,4,3,1,1,Semi-Furnished,68000
+Defence Colony,3.2,83,3.8,48,Executive,2,2,0,1,Fully-Furnished,62000
+Defence Colony,3.2,83,3.8,48,Family,5,4,2,1,Semi-Furnished,82000
+South Extension,2.8,86,4.2,55,Executive,2,2,0,1,Fully-Furnished,68000
+South Extension,2.8,86,4.2,55,Family,4,3,1,1,Semi-Furnished,78000
+Rajouri Garden,8.2,70,5.4,40,Family,4,3,1,1,Semi-Furnished,35000
+Rajouri Garden,8.2,70,5.4,40,Bachelor,2,1,0,0,Unfurnished,25000
+Punjabi Bagh,10.5,65,5.7,35,Family,3,2,1,1,Semi-Furnished,32000
+Punjabi Bagh,10.5,65,5.7,35,Bachelor,2,1,0,0,Unfurnished,22000
+Mayur Vihar,16.8,55,6.2,30,Family,4,3,1,1,Semi-Furnished,28000
+Mayur Vihar,16.8,55,6.2,30,Bachelor,1,1,0,0,Unfurnished,18000
+Patparganj,18.2,48,6.8,25,Family,3,2,1,1,Semi-Furnished,24000
+Patparganj,18.2,48,6.8,25,Bachelor,2,1,0,0,Unfurnished,16000
+Laxmi Nagar,12.5,60,6.1,32,Family,4,3,1,1,Semi-Furnished,22000
+Laxmi Nagar,12.5,60,6.1,32,Bachelor,2,1,0,0,Unfurnished,15000
+Preet Vihar,14.2,58,6.4,28,Family,3,2,1,1,Semi-Furnished,25000
+Preet Vihar,14.2,58,6.4,28,Bachelor,1,1,0,0,Unfurnished,16000
+Shahdara,16.5,52,7.2,22,Family,4,3,1,1,Semi-Furnished,20000
+Shahdara,16.5,52,7.2,22,Bachelor,2,1,0,0,Unfurnished,14000
+Tilak Nagar,11.8,62,5.9,30,Family,3,2,1,1,Semi-Furnished,26000
+Tilak Nagar,11.8,62,5.9,30,Bachelor,2,1,0,0,Unfurnished,18000
+Uttam Nagar,22.5,42,7.5,18,Family,4,3,1,1,Semi-Furnished,18000
+Uttam Nagar,22.5,42,7.5,18,Bachelor,2,1,0,0,Unfurnished,12000
+Munirka,6.8,75,4.8,38,Executive,2,2,0,1,Fully-Furnished,42000
+Munirka,6.8,75,4.8,38,Family,3,2,1,1,Semi-Furnished,48000
+Malviya Nagar,5.2,78,4.6,42,Family,4,3,1,1,Semi-Furnished,45000
+Malviya Nagar,5.2,78,4.6,42,Executive,2,2,0,1,Fully-Furnished,52000
+Green Park,3.5,84,4.1,50,Executive,2,2,0,1,Fully-Furnished,72000
+Green Park,3.5,84,4.1,50,Family,4,3,1,1,Semi-Furnished,85000
+Nehru Place,4.5,81,4.7,45,Executive,2,2,0,1,Fully-Furnished,48000
+Nehru Place,4.5,81,4.7,45,Family,3,2,1,1,Semi-Furnished,55000
+Kalkaji,7.2,72,5.2,35,Family,4,3,1,1,Semi-Furnished,38000
+Kalkaji,7.2,72,5.2,35,Bachelor,2,1,0,0,Unfurnished,28000
+Okhla,8.8,68,5.8,32,Family,3,2,1,1,Semi-Furnished,35000
+Okhla,8.8,68,5.8,32,Bachelor,2,1,0,0,Unfurnished,25000

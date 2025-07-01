@@ -14,7 +14,9 @@ CORS(app)  # Enable CORS for all routes
 
 # Global model variable
 model = None
-feature_columns = ['Distance_to_Downtown', 'Transit_Score', 'Crime_Rate', 'Amenities_Count']
+feature_columns = ['Distance_to_Downtown', 'Transit_Score', 'Crime_Rate', 'Amenities_Count', 
+                  'Family_Type_Encoded', 'People_Count', 'Rooms_Required', 'Has_Children', 
+                  'Parking_Required', 'Furnished_Type_Encoded']
 
 def load_and_train_model():
     """Load data and train the model"""
@@ -24,6 +26,15 @@ def load_and_train_model():
         # Load the dataset
         data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rental_data.csv')
         df = pd.read_csv(data_path)
+        
+        # Encode categorical variables
+        # Family_Type: Bachelor=0, Executive=1, Family=2
+        family_type_mapping = {'Bachelor': 0, 'Executive': 1, 'Family': 2}
+        df['Family_Type_Encoded'] = df['Family_Type'].map(family_type_mapping)
+        
+        # Furnished_Type: Unfurnished=0, Semi-Furnished=1, Fully-Furnished=2
+        furnished_type_mapping = {'Unfurnished': 0, 'Semi-Furnished': 1, 'Fully-Furnished': 2}
+        df['Furnished_Type_Encoded'] = df['Furnished_Type'].map(furnished_type_mapping)
         
         # Prepare features and target
         X = df[feature_columns]
@@ -94,7 +105,9 @@ def predict_rent():
         data = request.json
         
         # Validate input data
-        required_fields = ['distance', 'transit_score', 'crime_rate', 'amenities']
+        required_fields = ['distance', 'transit_score', 'crime_rate', 'amenities', 
+                          'family_type', 'people_count', 'rooms_required', 'has_children',
+                          'parking_required', 'furnished_type']
         missing_fields = [field for field in required_fields if field not in data]
         
         if missing_fields:
@@ -102,12 +115,22 @@ def predict_rent():
                 'error': f'Missing required fields: {", ".join(missing_fields)}'
             }), 400
         
+        # Encode categorical variables
+        family_type_mapping = {'Bachelor': 0, 'Executive': 1, 'Family': 2}
+        furnished_type_mapping = {'Unfurnished': 0, 'Semi-Furnished': 1, 'Fully-Furnished': 2}
+        
         # Prepare features for prediction
         features = [
             float(data['distance']),
             float(data['transit_score']),
             float(data['crime_rate']),
-            float(data['amenities'])
+            float(data['amenities']),
+            family_type_mapping.get(data['family_type'], 0),
+            int(data['people_count']),
+            int(data['rooms_required']),
+            int(data['has_children']),
+            int(data['parking_required']),
+            furnished_type_mapping.get(data['furnished_type'], 0)
         ]
         
         # Make prediction
@@ -136,7 +159,13 @@ def predict_rent():
                 'distance_to_downtown': features[0],
                 'transit_score': features[1],
                 'crime_rate': features[2],
-                'amenities_count': features[3]
+                'amenities_count': features[3],
+                'family_type': data['family_type'],
+                'people_count': features[5],
+                'rooms_required': features[6],
+                'has_children': bool(features[7]),
+                'parking_required': bool(features[8]),
+                'furnished_type': data['furnished_type']
             }
         }
         
@@ -153,6 +182,13 @@ def get_similar_neighborhoods(input_features, top_n=3):
         data_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data', 'rental_data.csv')
         df = pd.read_csv(data_path)
         
+        # Encode categorical variables for comparison
+        family_type_mapping = {'Bachelor': 0, 'Executive': 1, 'Family': 2}
+        furnished_type_mapping = {'Unfurnished': 0, 'Semi-Furnished': 1, 'Fully-Furnished': 2}
+        
+        df['Family_Type_Encoded'] = df['Family_Type'].map(family_type_mapping)
+        df['Furnished_Type_Encoded'] = df['Furnished_Type'].map(furnished_type_mapping)
+        
         # Calculate similarity scores (using Euclidean distance)
         similarities = []
         
@@ -161,21 +197,36 @@ def get_similar_neighborhoods(input_features, top_n=3):
                 row['Distance_to_Downtown'],
                 row['Transit_Score'],
                 row['Crime_Rate'],
-                row['Amenities_Count']
+                row['Amenities_Count'],
+                row['Family_Type_Encoded'],
+                row['People_Count'],
+                row['Rooms_Required'],
+                row['Has_Children'],
+                row['Parking_Required'],
+                row['Furnished_Type_Encoded']
             ]
             
-            # Calculate normalized Euclidean distance
-            distance = np.sqrt(sum((a - b) ** 2 for a, b in zip(input_features, neighborhood_features)))
+            # Calculate normalized Euclidean distance with weights for different feature types
+            # Give more weight to structural features (rooms, people) and less to location features
+            weights = [0.8, 0.6, 0.7, 0.5, 1.5, 1.2, 2.0, 1.0, 0.8, 1.0]  # Rooms and people count get higher weights
+            
+            weighted_distance = np.sqrt(sum(w * (a - b) ** 2 for w, a, b in zip(weights, input_features, neighborhood_features)))
             
             similarities.append({
                 'neighborhood': row['Neighborhood'],
-                'distance': distance,
+                'distance': weighted_distance,
                 'rent': row['Average_Rent'],
                 'features': {
                     'distance_to_downtown': row['Distance_to_Downtown'],
                     'transit_score': row['Transit_Score'],
                     'crime_rate': row['Crime_Rate'],
-                    'amenities_count': row['Amenities_Count']
+                    'amenities_count': row['Amenities_Count'],
+                    'family_type': row['Family_Type'],
+                    'people_count': row['People_Count'],
+                    'rooms_required': row['Rooms_Required'],
+                    'has_children': bool(row['Has_Children']),
+                    'parking_required': bool(row['Parking_Required']),
+                    'furnished_type': row['Furnished_Type']
                 }
             })
         
@@ -204,6 +255,12 @@ def get_neighborhoods():
                 'transit_score': row['Transit_Score'],
                 'crime_rate': row['Crime_Rate'],
                 'amenities_count': row['Amenities_Count'],
+                'family_type': row['Family_Type'],
+                'people_count': row['People_Count'],
+                'rooms_required': row['Rooms_Required'],
+                'has_children': bool(row['Has_Children']),
+                'parking_required': bool(row['Parking_Required']),
+                'furnished_type': row['Furnished_Type'],
                 'average_rent': row['Average_Rent']
             })
         
