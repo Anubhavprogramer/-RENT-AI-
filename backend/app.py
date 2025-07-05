@@ -269,15 +269,24 @@ def get_neighborhoods():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# --- Main execution ---
+# This block is for local development.
+# In production (on Render), Gunicorn will be used to run the app.
 if __name__ == '__main__':
-    print("Starting RentWise API...")
+    print("Starting RentWise API in development mode...")
     
-    # Try to load existing model first
+    # On startup, load the pre-trained model.
+    # Ensure 'rent_predictor.pkl' is in your repository.
     if not load_model():
-        print("No pre-trained model found. Training new model...")
-        if load_and_train_model():
-            print("Model trained successfully!")
-        else:
-            print("Failed to train model. API will not work properly.")
+        print("CRITICAL: Pre-trained model 'rent_predictor.pkl' not found.")
+        print("Please train the model locally and commit the .pkl file.")
     
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    # The debug server is for local development only.
+    # Use 'python backend/app.py' to run locally.
+    app.run(debug=True, port=5001)
+else:
+    # This block runs when Gunicorn imports the app.
+    # This is the production execution path.
+    print("Starting RentWise API in production mode...")
+    if not load_model():
+        print("CRITICAL: Pre-trained model 'rent_predictor.pkl' not found.")
