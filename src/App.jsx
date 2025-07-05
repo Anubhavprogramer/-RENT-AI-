@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Home, MapPin, Train, Shield, Store, DollarSign, TrendingUp, AlertCircle, Users, Bed, Baby, Car, Sofa } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5001';
+const API_BASE_URL = 'https://rent-ai.onrender.com';
 
 function App() {
   const [formData, setFormData] = useState({
